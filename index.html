@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculations with Powers – Year 9 | Mr. McLean Math</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --bg-alt: #ffffff;
+      --fg: #222222;
+      --accent: #2b7cff;
+      --accent-soft: #e2ecff;
+      --error: #c62828;
+      --ok: #2e7d32;
+      --border: #dddddd;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    body.high-contrast {
+      --bg: #000000;
+      --bg-alt: #111111;
+      --fg: #ffffff;
+      --accent: #ffcc00;
+      --accent-soft: #333333;
+      --border: #555555;
+    }
+
+    .app {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: 1.3rem;
+      margin: 0;
+    }
+
+    .pill {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .control-group {
+      background: var(--bg-alt);
+      border-radius: 0.6rem;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.4rem 0.75rem;
+    }
+
+    .control-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-right: 0.25rem;
+    }
+
+    .segmented {
+      display: inline-flex;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .segmented button {
+      border: none;
+      background: transparent;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .segmented button.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    select, input[type="number"] {
+      padding: 0.2rem 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.85rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(260px, 2fr);
+      gap: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: 0.8rem;
+      padding: 0.9rem;
+      border: 1px solid var(--border);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+
+    .mode-tabs {
+      display: inline-flex;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 0.5rem;
+    }
+
+    .mode-tabs button {
+      border: none;
+      background: transparent;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .mode-tabs button.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .question-area {
+      margin-top: 0.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
+      min-height: 2.6rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .question-label {
+      font-size: 0.9rem;
+      color: #555555;
+      margin-bottom: 0.25rem;
+    }
+
+    body.high-contrast .question-label {
+      color: #cccccc;
+    }
+
+    .input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .input-row input[type="text"] {
+      flex: 1 1 160px;
+      padding: 0.35rem 0.4rem;
+      font-size: 1rem;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-radius: 0.6rem;
+      border: none;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: transparent;
+      border-radius: 0.6rem;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .feedback-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+      min-height: 1.5rem;
+    }
+
+    .feedback {
+      font-weight: 600;
+    }
+
+    .feedback.ok {
+      color: var(--ok);
+    }
+
+    .feedback.err {
+      color: var(--error);
+    }
+
+    .status-icons {
+      display: flex;
+      gap: 0.35rem;
+      font-size: 0.95rem;
+      align-items: center;
+    }
+
+    .status-icons span {
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 0.75rem;
+    }
+
+    .status-icons .ok {
+      border-color: var(--ok);
+      color: var(--ok);
+    }
+
+    .status-icons .err {
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    .timer-display {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .steps {
+      margin-top: 0.3rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .steps ol {
+      padding-left: 1.2rem;
+      margin: 0.2rem 0;
+    }
+
+    .summary-list {
+      font-size: 0.85rem;
+      max-height: 220px;
+      overflow: auto;
+      border-top: 1px solid var(--border);
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+    }
+
+    .summary-list details {
+      margin-bottom: 0.4rem;
+    }
+
+    .summary-list summary {
+      cursor: pointer;
+    }
+
+    .summary-list .q {
+      font-weight: 600;
+    }
+
+    .summary-list .your {
+      color: var(--error);
+    }
+
+    .summary-list .correct {
+      color: var(--ok);
+    }
+
+    .worksheet-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      align-items: center;
+    }
+
+    .worksheet-output {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .ws-item {
+      margin-bottom: 1.4rem;
+    }
+
+    .ws-answer {
+      display: none;
+      margin-top: 0.2rem;
+      font-size: 0.9rem;
+      color: #444444;
+    }
+
+    body.high-contrast .ws-answer {
+      color: #dddddd;
+    }
+
+    footer {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      text-align: center;
+      color: #666666;
+    }
+
+    body.high-contrast footer {
+      color: #bbbbbb;
+    }
+
+    /* Developer panel */
+    #dev-panel {
+      display: none;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+
+    #dev-panel pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    /* Horizontal fraction styling */
+    .frac {
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      font-size: 0.95em;
+    }
+
+    .frac .num,
+    .frac .den {
+      display: block;
+      padding: 0 0.15rem;
+    }
+
+    .frac .bar {
+      display: block;
+      border-top: 1px solid currentColor;
+      margin: 0.1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1>Calculations with Powers – Year 9</h1>
+        <div class="pill">Practice exponents, exponent rules, and solving for x</div>
+      </div>
+      <div class="badge">Created by Mr. McLean Math</div>
+    </header>
+
+    <div class="controls" aria-label="Global controls">
+      <div class="control-group" aria-label="Mode selection">
+        <label>Mode:</label>
+        <div class="segmented" id="mainModeButtons">
+          <button type="button" data-mode="game" class="active">Game</button>
+          <button type="button" data-mode="worksheet">Worksheet</button>
+        </div>
+      </div>
+
+      <div class="control-group" aria-label="Question type">
+        <label>Question type:</label>
+        <div class="segmented" id="questionTypeButtons">
+          <button type="button" data-qtype="solve" class="active">Solve</button>
+          <button type="button" data-qtype="solveForX">Solve for x</button>
+        </div>
+      </div>
+
+      <div class="control-group" aria-label="Difficulty">
+        <label>Difficulty:</label>
+        <div class="segmented" id="difficultyButtons">
+          <button type="button" data-diff="easy" class="active">🟢</button>
+          <button type="button" data-diff="medium">🟡</button>
+          <button type="button" data-diff="hard">🔴</button>
+          <button type="button" data-diff="random">🎲</button>
+        </div>
+      </div>
+
+      <div class="control-group" aria-label="Timer and sound">
+        <div class="toggle">
+          <input type="checkbox" id="timerToggle">
+          <label for="timerToggle">Timer</label>
+          <select id="timerDuration">
+            <option value="30">30 s</option>
+            <option value="60" selected>60 s</option>
+            <option value="90">90 s</option>
+            <option value="120">120 s</option>
+          </select>
+        </div>
+        <div class="toggle">
+          <input type="checkbox" id="soundToggle" checked>
+          <label for="soundToggle">Sound</label>
+        </div>
+        <div class="toggle">
+          <input type="checkbox" id="contrastToggle">
+          <label for="contrastToggle">High contrast</label>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <!-- Game card -->
+      <section class="card" id="gameCard" aria-label="Game mode">
+        <div class="mode-tabs" aria-label="Game mode tabs">
+          <button type="button" class="active" data-gamemode="game">Game</button>
+          <button type="button" data-gamemode="worksheet">Worksheet</button>
+        </div>
+
+        <!-- GAME SECTION -->
+        <div id="gameSection">
+          <p class="question-label" id="questionLabel">Calculate the value:</p>
+          <div class="question-area" id="questionArea" aria-live="polite"></div>
+
+          <div class="input-row">
+            <input type="text" id="answerInput" autocomplete="off" aria-label="Your answer">
+            <button type="button" id="submitBtn" class="primary">Submit (Enter)</button>
+            <button type="button" id="nextBtn" class="secondary" disabled>Next</button>
+          </div>
+
+          <div class="feedback-row" aria-live="polite">
+            <div class="feedback" id="feedbackArea"></div>
+            <div class="status-icons">
+              <span class="ok" id="statusCorrect">✔ 0</span>
+              <span class="err" id="statusIncorrect">✖ 0</span>
+              <span id="statusScore">Score: 0</span>
+              <span id="statusStreak">Streak: 0</span>
+              <span class="timer-display" id="timerDisplay"></span>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <button type="button" id="showStepsBtn" class="secondary" disabled>Show steps</button>
+          </div>
+
+          <div class="steps" id="stepsArea" aria-live="polite"></div>
+        </div>
+
+        <!-- WORKSHEET SECTION (inside same card, toggled) -->
+        <div id="worksheetSection" style="display:none;">
+          <h2 style="margin-top:0;">Worksheet mode</h2>
+          <div class="worksheet-controls">
+            <label for="wsType">Type:</label>
+            <select id="wsType">
+              <option value="solve">Solve</option>
+              <option value="solveForX">Solve for x</option>
+              <option value="mixed">Mixed</option>
+            </select>
+
+            <label for="wsDifficulty">Difficulty:</label>
+            <select id="wsDifficulty">
+              <option value="easy">Easy (🟢)</option>
+              <option value="medium">Medium (🟡)</option>
+              <option value="hard">Hard (🔴)</option>
+              <option value="random">Random (🎲)</option>
+            </select>
+
+            <label for="wsCount">Questions:</label>
+            <select id="wsCount">
+              <option value="5">5</option>
+              <option value="10" selected>10</option>
+              <option value="15">15</option>
+            </select>
+
+            <button type="button" id="generateWsBtn" class="primary">Generate worksheet</button>
+            <button type="button" id="wsRevealAllBtn" class="secondary" disabled>Reveal all</button>
+            <button type="button" id="wsHideAllBtn" class="secondary" disabled>Hide all</button>
+          </div>
+          <div class="worksheet-output" id="worksheetOutput" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <!-- Summary card -->
+      <section class="card" aria-label="Session summary">
+        <h2>Session summary</h2>
+        <p>
+          Problems answered: <strong id="sumTotal">0</strong><br>
+          Correct: <strong id="sumCorrect">0</strong><br>
+          Accuracy: <strong id="sumAccuracy">0%</strong><br>
+          Score: <strong id="sumScore">0</strong><br>
+          Best streak: <strong id="sumBestStreak">0</strong>
+        </p>
+        <details>
+          <summary>Incorrect answers list</summary>
+          <div class="summary-list" id="incorrectList"></div>
+        </details>
+      </section>
+    </main>
+
+    <section id="dev-panel" class="card" aria-label="Developer tests">
+      <h2>Developer tests (?dev=1)</h2>
+      <pre id="dev-log"></pre>
+    </section>
+
+    <footer>
+      Created by Mr. McLean Math. Single-file game for practicing calculations with powers and solving for x (Year 9 level).
+    </footer>
+  </div>
+
+  <script>
+    // =========================
+    // Utility helpers
+    // =========================
+
+    function formatNumber(num) {
+      if (typeof num !== 'number' || !isFinite(num)) return String(num);
+      const negative = num < 0;
+      let s = Math.abs(num).toString();
+      if (s.includes('.')) {
+        const parts = s.split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        return (negative ? '-' : '') + parts[0] + '.' + parts[1];
+      } else {
+        s = s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        return (negative ? '-' : '') + s;
+      }
+    }
+
+    function normalizeInput(str) {
+      if (!str) return null;
+      str = String(str).trim();
+      if (!str) return null;
+      str = str.replace(/\s+/g, '');
+      // replace comma with dot for decimals
+      str = str.replace(',', '.');
+      const val = Number(str);
+      if (!isFinite(val)) return null;
+      return val;
+    }
+
+    function randInt(min, max) {
+      // inclusive
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function choice(arr) {
+      return arr[randInt(0, arr.length - 1)];
+    }
+
+    function makePowerHTML(base, exponent) {
+      return base + '<sup>' + exponent + '</sup>';
+    }
+
+    function makeFracHTML(numHTML, denHTML) {
+      return '<span class="frac">' +
+               '<span class="num">' + numHTML + '</span>' +
+               '<span class="bar"></span>' +
+               '<span class="den">' + denHTML + '</span>' +
+             '</span>';
+    }
+
+    // =========================
+    // Problem generation
+    // =========================
+
+    // We'll represent problems as objects:
+    // {
+    //   kind: 'solve' | 'solveForX',
+    //   difficulty: 'easy' | 'medium' | 'hard',
+    //   questionHTML: string,
+    //   label: string,
+    //   answer: number,
+    //   stepsHTML: string
+    // }
+
+    function makeSolveProblem(difficulty) {
+      // Generate until answer is a safe integer not too large
+      for (let attempts = 0; attempts < 50; attempts++) {
+        let base = randInt(2, 9);
+        let html = '';
+        let steps = '<ol>';
+        let answer;
+        if (difficulty === 'easy') {
+          const type = choice(['mult', 'div', 'mixed', 'power']);
+          if (type === 'mult') {
+            const e1 = randInt(1, 5);
+            const e2 = randInt(1, 5);
+            const totalExp = e1 + e2;
+            answer = Math.pow(base, totalExp);
+            if (!Number.isSafeInteger(answer) || answer > 1e9) continue;
+            html = makePowerHTML(base, e1) + ' · ' + makePowerHTML(base, e2);
+            steps += '<li>Use product rule: a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup>.</li>';
+            steps += '<li>' + base + '<sup>' + e1 + '</sup> · ' + base + '<sup>' + e2 + '</sup> = ' +
+                     base + '<sup>' + e1 + '+' + e2 + '</sup> = ' + base + '<sup>' + totalExp + '</sup>.</li>';
+            steps += '<li>Calculate ' + base + '<sup>' + totalExp + '</sup> = ' + formatNumber(answer) + '.</li>';
+          } else if (type === 'div') {
+            const e1 = randInt(3, 7);
+            const e2 = randInt(1, e1 - 1);
+            const totalExp = e1 - e2;
+            answer = Math.pow(base, totalExp);
+            if (!Number.isSafeInteger(answer) || answer > 1e9) continue;
+            html = makeFracHTML(
+              makePowerHTML(base, e1),
+              makePowerHTML(base, e2)
+            );
+            steps += '<li>Use quotient rule: a<sup>m</sup> / a<sup>n</sup> = a<sup>m-n</sup>.</li>';
+            steps += '<li>' + base + '<sup>' + e1 + '</sup> / ' + base + '<sup>' + e2 + '</sup> = ' +
+                     base + '<sup>' + e1 + '&minus;' + e2 + '</sup> = ' + base + '<sup>' + totalExp + '</sup>.</li>';
+            steps += '<li>Calculate ' + base + '<sup>' + totalExp + '</sup> = ' + formatNumber(answer) + '.</li>';
+          } else if (type === 'power') {
+            const e1 = randInt(2, 4);
+            const e2 = randInt(2, 3);
+            const totalExp = e1 * e2;
+            answer = Math.pow(base, totalExp);
+            if (!Number.isSafeInteger(answer) || answer > 1e9) continue;
+            html = '(' + makePowerHTML(base, e1) + ')<sup>' + e2 + '</sup>';
+            steps += '<li>Use power rule: (a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup>.</li>';
+            steps += '<li>(' + base + '<sup>' + e1 + '</sup>)<sup>' + e2 + '</sup> = ' +
+                     base + '<sup>' + e1 + '·' + e2 + '</sup> = ' + base + '<sup>' + totalExp + '</sup>.</li>';
+            steps += '<li>Calculate ' + base + '<sup>' + totalExp + '</sup> = ' + formatNumber(answer) + '.</li>';
+          } else {
+            // mixed: (a^p · a^q) / a^r
+            const p = randInt(2, 6);
+            const q = randInt(2, 6);
+            const r = randInt(1, 4);
+            const totalExp = p + q - r;
+            if (totalExp < 0) continue;
+            answer = Math.pow(base, totalExp);
+            if (!Number.isSafeInteger(answer) || answer > 1e9) continue;
+            const numerator = '(' + makePowerHTML(base, p) + ' · ' + makePowerHTML(base, q) + ')';
+            const denominator = makePowerHTML(base, r);
+            html = makeFracHTML(numerator, denominator);
+            steps += '<li>Combine the factors in the numerator using the product rule.</li>';
+            steps += '<li>' + base + '<sup>' + p + '</sup> · ' + base + '<sup>' + q + '</sup> = ' +
+                     base + '<sup>' + (p + q) + '</sup>.</li>';
+            steps += '<li>Now divide: a<sup>m</sup> / a<sup>n</sup> = a<sup>m-n</sup>.</li>';
+            steps += '<li>' + base + '<sup>' + (p + q) + '</sup> / ' + base + '<sup>' + r + '</sup> = ' +
+                     base + '<sup>' + totalExp + '</sup>.</li>';
+            steps += '<li>Calculate ' + base + '<sup>' + totalExp + '</sup> = ' + formatNumber(answer) + '.</li>';
+          }
+        } else if (difficulty === 'medium') {
+          const type = choice(['multi', 'nested']);
+          if (type === 'multi') {
+            // up to 4 factors, some in denominator
+            const numCount = randInt(2, 3);
+            const denCount = randInt(1, 2);
+            let totalExp = 0;
+            let partsNum = [];
+            let partsDen = [];
+            for (let i = 0; i < numCount; i++) {
+              const e = randInt(1, 6);
+              totalExp += e;
+              partsNum.push(makePowerHTML(base, e));
+            }
+            for (let i = 0; i < denCount; i++) {
+              const e = randInt(1, 5);
+              totalExp -= e;
+              partsDen.push(makePowerHTML(base, e));
+            }
+            if (totalExp < 0) continue;
+            answer = Math.pow(base, totalExp);
+            if (!Number.isSafeInteger(answer) || answer > 1e9) continue;
+            const numerator = partsNum.join(' · ');
+            const denominator = partsDen.join(' · ');
+            html = makeFracHTML(numerator, denominator);
+            steps += '<li>Add exponents in the numerator and subtract the exponents in the denominator.</li>';
+            steps += '<li>Total exponent = ' + partsNum.length + ' terms in numerator minus ' +
+                     partsDen.length + ' terms in denominator.</li>';
+            steps += '<li>Result: ' + base + '<sup>' + totalExp + '</sup> = ' + formatNumber(answer) + '.</li>';
+          } else {
+            // nested power: (a^p · a^q)^r
+            const p = randInt(1, 5);
+            const q = randInt(1, 5);
+            const r = randInt(2, 3);
+            const insideExp = p + q;
+            const totalExp = insideExp * r;
+            answer = Math.pow(base, totalExp);
+            if (!Number.isSafeInteger(answer) || answer > 1e9) continue;
+            html = '(' + makePowerHTML(base, p) + ' · ' + makePowerHTML(base, q) + ')<sup>' + r + '</sup>';
+            steps += '<li>First use product rule inside brackets.</li>';
+            steps += '<li>' + base + '<sup>' + p + '</sup> · ' + base + '<sup>' + q + '</sup> = ' +
+                     base + '<sup>' + insideExp + '</sup>.</li>';
+            steps += '<li>Now apply power rule: (a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup>.</li>';
+            steps += '<li>(' + base + '<sup>' + insideExp + '</sup>)<sup>' + r + '</sup> = ' +
+                     base + '<sup>' + totalExp + '</sup> = ' + formatNumber(answer) + '.</li>';
+          }
+        } else { // hard
+          const type = choice(['twoBase', 'deep']);
+          if (type === 'twoBase') {
+            const base2 = choice([2,3,5,7,9].filter(b => b !== base));
+            const e1 = randInt(2,5);
+            const e2 = randInt(2,4);
+            const e3 = randInt(1,3);
+            const e4 = randInt(1,3);
+            const num = Math.pow(base, e1) * Math.pow(base2, e2);
+            const den = Math.pow(base, e3) * Math.pow(base2, e4);
+            answer = num / den;
+            if (!Number.isSafeInteger(answer) || answer <= 0 || answer > 1e9) continue;
+            const numerator = makePowerHTML(base, e1) + ' · ' + makePowerHTML(base2, e2);
+            const denominator = makePowerHTML(base, e3) + ' · ' + makePowerHTML(base2, e4);
+            html = makeFracHTML(numerator, denominator);
+            steps += '<li>Work with each base separately.</li>';
+            steps += '<li>For base ' + base + ': exponent ' + e1 + ' − ' + e3 + ' = ' + (e1 - e3) + '.</li>';
+            steps += '<li>For base ' + base2 + ': exponent ' + e2 + ' − ' + e4 + ' = ' + (e2 - e4) + '.</li>';
+            steps += '<li>So the expression becomes ' + base + '<sup>' + (e1 - e3) + '</sup> · ' +
+                     base2 + '<sup>' + (e2 - e4) + '</sup>.</li>';
+            steps += '<li>Calculate each power and multiply to get ' + formatNumber(answer) + '.</li>';
+          } else {
+            const p = randInt(2,4);
+            const q = randInt(2,4);
+            const r = randInt(2,3);
+            const s = randInt(1,3);
+            const numExp = (p + q) * r;
+            const totalExp = numExp - s;
+            if (totalExp < 0) continue;
+            answer = Math.pow(base, totalExp);
+            if (!Number.isSafeInteger(answer) || answer > 1e9) continue;
+            const numerator = '(' + makePowerHTML(base, p) + ' · ' + makePowerHTML(base, q) +
+                              ')<sup>' + r + '</sup>';
+            const denominator = makePowerHTML(base, s);
+            html = makeFracHTML(numerator, denominator);
+            steps += '<li>Simplify inside brackets, then use power rule, then quotient rule.</li>';
+            steps += '<li>Inside: exponent ' + p + '+' + q + ' = ' + (p + q) + '.</li>';
+            steps += '<li>Power rule: exponent ' + (p + q) + '·' + r + ' = ' + numExp + '.</li>';
+            steps += '<li>Divide by ' + base + '<sup>' + s + '</sup>: exponent ' +
+                     numExp + '&minus;' + s + ' = ' + totalExp + '.</li>';
+            steps += '<li>Calculate ' + base + '<sup>' + totalExp + '</sup> = ' + formatNumber(answer) + '.</li>';
+          }
+        }
+
+        steps += '</ol>';
+        return {
+          kind: 'solve',
+          difficulty,
+          questionHTML: html + ' = ?',
+          label: 'Calculate the value:',
+          answer,
+          stepsHTML: steps
+        };
+      }
+      // fallback
+      return {
+        kind: 'solve',
+        difficulty,
+        questionHTML: '2<sup>3</sup> · 2<sup>2</sup> = ?',
+        label: 'Calculate the value:',
+        answer: 32,
+        stepsHTML: '<ol><li>2<sup>3</sup> · 2<sup>2</sup> = 2<sup>3+2</sup> = 2<sup>5</sup> = 32.</li></ol>'
+      };
+    }
+
+    function makeSolveForXProblem(difficulty) {
+      // Option D: Easy: whole solutions, Medium: integer, Hard: integer or decimal
+      for (let attempts = 0; attempts < 50; attempts++) {
+        let base = randInt(2, 9);
+        let html = '';
+        let steps = '<ol>';
+        let answer;
+        if (difficulty === 'easy') {
+          // form: b^x · b^a = b^c
+          const a = randInt(1, 5);
+          const c = randInt(a + 1, a + 8);
+          answer = c - a; // whole number >=1
+          html = makePowerHTML(base, 'x') + ' · ' + makePowerHTML(base, a) + ' = ' + makePowerHTML(base, c);
+          steps += '<li>Use product rule: add exponents on the left.</li>';
+          steps += '<li>x + ' + a + ' = ' + c + '.</li>';
+          steps += '<li>Subtract ' + a + ': x = ' + c + ' − ' + a + ' = ' + answer + '.</li>';
+        } else if (difficulty === 'medium') {
+          const type = choice(['numDen', 'linear']);
+          if (type === 'numDen') {
+            // (b^(x+u)) / (b^v) = b^w  -> x+u-v = w
+            const u = randInt(-3, 3);
+            const v = randInt(0, 5);
+            const xVal = randInt(-6, 6); // integer
+            const w = xVal + u - v;
+            const expStr = 'x' + (u >= 0 ? '+' + u : u);
+            html = makeFracHTML(
+              makePowerHTML(base, expStr),
+              makePowerHTML(base, v)
+            ) + ' = ' + makePowerHTML(base, w);
+            steps += '<li>Combine exponents on the left: (x ' + (u >= 0 ? '+ ' + u : '− ' + Math.abs(u)) +
+                     ') − ' + v + ' = x ' + (u - v >= 0 ? '+ ' + (u - v) : '− ' + Math.abs(u - v)) + '.</li>';
+            steps += '<li>So x ' + (u - v >= 0 ? '+ ' + (u - v) : '− ' + Math.abs(u - v)) + ' = ' + w + '.</li>';
+            steps += '<li>Solve: x = ' + w + ' ' + (u - v >= 0 ? '− ' + (u - v) : '+ ' + Math.abs(u - v)) +
+                     ' = ' + xVal + '.</li>';
+            answer = xVal;
+          } else {
+            // b^(2x + k) = b^n
+            const xVal = randInt(-5, 5);
+            const k = randInt(-4, 4);
+            const n = 2 * xVal + k;
+            html = makePowerHTML(base, '2x' + (k >= 0 ? '+' + k : k)) + ' = ' + makePowerHTML(base, n);
+            steps += '<li>Equal bases mean equal exponents.</li>';
+            steps += '<li>2x ' + (k >= 0 ? '+ ' + k : '− ' + Math.abs(k)) + ' = ' + n + '.</li>';
+            steps += '<li>Subtract ' + k + ': 2x = ' + (n - k) + '.</li>';
+            steps += '<li>Divide by 2: x = ' + (n - k) + ' / 2 = ' + xVal + '.</li>';
+            answer = xVal;
+          }
+        } else { // hard
+          const type = choice(['fractional', 'multi']);
+          if (type === 'fractional') {
+            // (b^(ax + c)) = b^d with a possibly non-integer solution
+            const a = choice([3,4,5]);
+            const c = randInt(-5, 5);
+            const xVal = (randInt(-10, 10)) / choice([2,4,5]); // rational
+            const d = a * xVal + c;
+            // ensure not crazy decimals
+            if (Math.abs(d) > 40) continue;
+            html = makePowerHTML(base, a + 'x' + (c >= 0 ? '+' + c : c)) + ' = ' + makePowerHTML(base, d);
+            steps += '<li>Equal bases mean equal exponents.</li>';
+            steps += '<li>' + a + 'x ' + (c >= 0 ? '+ ' + c : '− ' + Math.abs(c)) + ' = ' + d + '.</li>';
+            steps += '<li>Subtract ' + c + ': ' + a + 'x = ' + (d - c) + '.</li>';
+            const frac = (d - c) + ' / ' + a;
+            steps += '<li>Divide by ' + a + ': x = ' + frac + ' = ' + xVal + '.</li>';
+            answer = Number(xVal.toFixed(4));
+          } else {
+            // numerator and denominator combination giving decimal
+            const a = choice([2,3,4]);
+            const bcoef = choice([2,4,5]);
+            const xVal = (randInt(-8, 8)) / bcoef;
+            const offset = randInt(-4,4);
+            const leftExp = a * xVal + offset;
+            const rightExp = randInt(-10,10);
+            const adjust = rightExp - leftExp;
+            const numerator = makePowerHTML(base, a + 'x' + (offset >= 0 ? '+' + offset : offset)) +
+                              ' · ' + makePowerHTML(base, adjust);
+            const denominator = base + '<sup>0</sup>'; // visually we just carry the expression; explanation in steps
+            // Actually, this one doesn't need visible fraction; keep as product form
+            html = makePowerHTML(base, a + 'x' + (offset >= 0 ? '+' + offset : offset)) +
+                   ' · ' + makePowerHTML(base, adjust) + ' = ' + makePowerHTML(base, rightExp);
+            steps += '<li>Use product rule: add exponents on the left.</li>';
+            steps += '<li>(' + a + 'x ' + (offset >= 0 ? '+ ' + offset : '− ' + Math.abs(offset)) +
+                     ') + ' + adjust + ' = ' + a + 'x ' +
+                     (offset + adjust >= 0 ? '+ ' + (offset + adjust) : '− ' + Math.abs(offset + adjust)) +
+                     '.</li>';
+            steps += '<li>So ' + a + 'x ' +
+                     (offset + adjust >= 0 ? '+ ' + (offset + adjust) : '− ' + Math.abs(offset + adjust)) +
+                     ' = ' + rightExp + '.</li>';
+            const c = offset + adjust;
+            steps += '<li>Subtract ' + c + ': ' + a + 'x = ' + (rightExp - c) + '.</li>';
+            steps += '<li>Divide by ' + a + ': x = ' + (rightExp - c) + ' / ' + a +
+                     ' = ' + xVal + '.</li>';
+            answer = Number(xVal.toFixed(4));
+          }
+        }
+        steps += '</ol>';
+        return {
+          kind: 'solveForX',
+          difficulty,
+          questionHTML: html,
+          label: 'Solve for x:',
+          answer,
+          stepsHTML: steps
+        };
+      }
+      // fallback
+      return {
+        kind: 'solveForX',
+        difficulty,
+        questionHTML: '2<sup>x</sup> · 2<sup>3</sup> = 2<sup>8</sup>',
+        label: 'Solve for x:',
+        answer: 5,
+        stepsHTML: '<ol><li>Add exponents: x + 3 = 8.</li><li>Subtract 3: x = 5.</li></ol>'
+      };
+    }
+
+    function generateProblem(kind, difficulty) {
+      if (difficulty === 'random') {
+        difficulty = choice(['easy', 'medium', 'hard']);
+      }
+      if (kind === 'solveForX') return makeSolveForXProblem(difficulty);
+      return makeSolveProblem(difficulty);
+    }
+
+    // =========================
+    // Game state
+    // =========================
+
+    const state = {
+      currentProblem: null,
+      mode: 'game', // 'game' or 'worksheet' for main tab
+      questionType: 'solve', // 'solve' or 'solveForX'
+      difficulty: 'easy',
+      stats: {
+        total: 0,
+        correct: 0,
+        incorrect: 0,
+        score: 0,
+        streak: 0,
+        bestStreak: 0,
+        incorrectList: []
+      },
+      timer: {
+        enabled: false,
+        duration: 60,
+        remaining: 0,
+        id: null
+      },
+      lastWasCorrect: false
+    };
+
+    // =========================
+    // DOM References
+    // =========================
+
+    const mainModeButtons = document.getElementById('mainModeButtons');
+    const questionTypeButtons = document.getElementById('questionTypeButtons');
+    const difficultyButtons = document.getElementById('difficultyButtons');
+    const timerToggle = document.getElementById('timerToggle');
+    const timerDurationSel = document.getElementById('timerDuration');
+    const soundToggle = document.getElementById('soundToggle');
+    const contrastToggle = document.getElementById('contrastToggle');
+
+    const gameCard = document.getElementById('gameCard');
+    const gameSection = document.getElementById('gameSection');
+    const worksheetSection = document.getElementById('worksheetSection');
+    const questionArea = document.getElementById('questionArea');
+    const questionLabel = document.getElementById('questionLabel');
+    const answerInput = document.getElementById('answerInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const feedbackArea = document.getElementById('feedbackArea');
+    const showStepsBtn = document.getElementById('showStepsBtn');
+    const stepsArea = document.getElementById('stepsArea');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const statusCorrect = document.getElementById('statusCorrect');
+    const statusIncorrect = document.getElementById('statusIncorrect');
+    const statusScore = document.getElementById('statusScore');
+    const statusStreak = document.getElementById('statusStreak');
+
+    const sumTotal = document.getElementById('sumTotal');
+    const sumCorrect = document.getElementById('sumCorrect');
+    const sumAccuracy = document.getElementById('sumAccuracy');
+    const sumScore = document.getElementById('sumScore');
+    const sumBestStreak = document.getElementById('sumBestStreak');
+    const incorrectList = document.getElementById('incorrectList');
+
+    const wsType = document.getElementById('wsType');
+    const wsDifficulty = document.getElementById('wsDifficulty');
+    const wsCount = document.getElementById('wsCount');
+    const generateWsBtn = document.getElementById('generateWsBtn');
+    const wsRevealAllBtn = document.getElementById('wsRevealAllBtn');
+    const wsHideAllBtn = document.getElementById('wsHideAllBtn');
+    const worksheetOutput = document.getElementById('worksheetOutput');
+
+    const devPanel = document.getElementById('dev-panel');
+    const devLog = document.getElementById('dev-log');
+
+    // =========================
+    // Timer & sound
+    // =========================
+
+    function playBeep(freq, duration) {
+      if (!soundToggle.checked) return;
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.frequency.value = freq;
+        osc.type = 'sine';
+        gain.gain.value = 0.15;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => {
+          osc.stop();
+          ctx.close();
+        }, duration || 150);
+      } catch (e) {
+        // Fail silently if AudioContext unavailable
+      }
+    }
+
+    function stopTimer() {
+      if (state.timer.id !== null) {
+        clearInterval(state.timer.id);
+        state.timer.id = null;
+      }
+      timerDisplay.textContent = '';
+    }
+
+    function startTimer() {
+      stopTimer();
+      if (!state.timer.enabled) return;
+      state.timer.remaining = state.timer.duration;
+      timerDisplay.textContent = state.timer.remaining + ' s';
+      state.timer.id = setInterval(() => {
+        state.timer.remaining--;
+        if (state.timer.remaining <= 0) {
+          timerDisplay.textContent = 'Time\'s up!';
+          clearInterval(state.timer.id);
+          state.timer.id = null;
+          handleTimeUp();
+        } else {
+          timerDisplay.textContent = state.timer.remaining + ' s';
+        }
+      }, 1000);
+    }
+
+    function handleTimeUp() {
+      if (!state.currentProblem) return;
+      if (state.lastWasCorrect) return;
+      // Count as incorrect once
+      if (!submitBtn.disabled) {
+        submitBtn.disabled = true;
+        nextBtn.disabled = false;
+        showStepsBtn.disabled = false;
+        feedbackArea.textContent = 'Time\'s up! Correct answer: ' + formatNumber(state.currentProblem.answer);
+        feedbackArea.className = 'feedback err';
+        playBeep(260, 180);
+        recordResult(false, null);
+      }
+    }
+
+    // =========================
+    // Game mechanics
+    // =========================
+
+    function updateStatsDisplay() {
+      const s = state.stats;
+      statusCorrect.textContent = '✔ ' + s.correct;
+      statusIncorrect.textContent = '✖ ' + s.incorrect;
+      statusScore.textContent = 'Score: ' + s.score;
+      statusStreak.textContent = 'Streak: ' + s.streak;
+
+      sumTotal.textContent = s.total;
+      sumCorrect.textContent = s.correct;
+      const accuracy = s.total ? Math.round((s.correct / s.total) * 100) : 0;
+      sumAccuracy.textContent = accuracy + '%';
+      sumScore.textContent = s.score;
+      sumBestStreak.textContent = s.bestStreak;
+
+      incorrectList.innerHTML = '';
+      s.incorrectList.forEach((item, idx) => {
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.textContent = (idx + 1) + '. ' + item.kindLabel + ' (' + item.difficulty.toUpperCase() + ')';
+        details.appendChild(summary);
+        const p = document.createElement('div');
+        p.innerHTML = '<div class="q">Q: ' + item.questionHTML + '</div>' +
+                      '<div class="your">Your answer: ' + item.yourAnswer + '</div>' +
+                      '<div class="correct">Correct answer: ' + formatNumber(item.correctAnswer) + '</div>';
+        details.appendChild(p);
+        incorrectList.appendChild(details);
+      });
+    }
+
+    function recordResult(isCorrect, userValue) {
+      const s = state.stats;
+      s.total++;
+      if (isCorrect) {
+        s.correct++;
+        s.score += 10;
+        s.streak++;
+        if (s.streak % 5 === 0) {
+          s.score += 5;
+        }
+        if (s.streak > s.bestStreak) s.bestStreak = s.streak;
+      } else {
+        s.incorrect++;
+        s.streak = 0;
+        if (state.currentProblem) {
+          s.incorrectList.push({
+            questionHTML: state.currentProblem.questionHTML,
+            correctAnswer: state.currentProblem.answer,
+            yourAnswer: userValue === null ? '(no answer)' : userValue,
+            difficulty: state.currentProblem.difficulty,
+            kindLabel: state.currentProblem.kind === 'solve' ? 'Solve' : 'Solve for x'
+          });
+        }
+      }
+      updateStatsDisplay();
+    }
+
+    function loadNewProblem() {
+      state.lastWasCorrect = false;
+      const kind = state.questionType;
+      const difficulty = state.difficulty;
+      const prob = generateProblem(kind, difficulty);
+      state.currentProblem = prob;
+      questionArea.innerHTML = prob.questionHTML;
+      questionLabel.textContent = prob.label;
+      stepsArea.innerHTML = '';
+      feedbackArea.textContent = '';
+      feedbackArea.className = 'feedback';
+      showStepsBtn.disabled = true;
+      answerInput.value = '';
+      submitBtn.disabled = false;
+      nextBtn.disabled = true;
+      answerInput.focus();
+      if (state.timer.enabled) {
+        startTimer();
+      } else {
+        stopTimer();
+      }
+    }
+
+    function checkAnswer() {
+      if (!state.currentProblem) return;
+      const val = normalizeInput(answerInput.value);
+      if (val === null) {
+        feedbackArea.textContent = 'Please enter a number.';
+        feedbackArea.className = 'feedback err';
+        return;
+      }
+      let correct = false;
+      const ans = state.currentProblem.answer;
+      if (state.currentProblem.kind === 'solveForX' && state.currentProblem.difficulty === 'hard') {
+        correct = Math.abs(val - ans) < 1e-3;
+      } else {
+        correct = Math.abs(val - ans) < 1e-9;
+      }
+      state.lastWasCorrect = correct;
+      submitBtn.disabled = true;
+      nextBtn.disabled = false;
+      showStepsBtn.disabled = !state.currentProblem.stepsHTML;
+      stopTimer();
+
+      if (correct) {
+        feedbackArea.textContent = 'Correct!';
+        feedbackArea.className = 'feedback ok';
+        playBeep(880, 180);
+      } else {
+        feedbackArea.textContent = 'Incorrect. Try reviewing the steps.';
+        feedbackArea.className = 'feedback err';
+        playBeep(260, 180);
+      }
+      recordResult(correct, answerInput.value.trim());
+    }
+
+    // =========================
+    // Worksheet generation
+    // =========================
+
+    function generateWorksheet() {
+      const count = Number(wsCount.value);
+      let type = wsType.value; // 'solve', 'solveForX', 'mixed'
+      let diff = wsDifficulty.value;
+      worksheetOutput.innerHTML = '';
+      const items = [];
+      for (let i = 0; i < count; i++) {
+        let kind = type;
+        if (type === 'mixed') {
+          kind = choice(['solve', 'solveForX']);
+        }
+        let difficulty = diff;
+        if (difficulty === 'random') {
+          difficulty = choice(['easy', 'medium', 'hard']);
+        }
+        const prob = generateProblem(kind, difficulty);
+        items.push(prob);
+      }
+      items.forEach((prob, idx) => {
+        const div = document.createElement('div');
+        div.className = 'ws-item';
+        const qNum = idx + 1;
+        const label = prob.kind === 'solve' ? 'Calculate: ' : 'Solve for x: ';
+        div.innerHTML =
+          '<div><strong>' + qNum + '.</strong> ' +
+          label + prob.questionHTML + '</div>' +
+          '<div style="border-bottom:1px solid #ccc; margin-top:0.4rem;"></div>' +
+          '<div style="border-bottom:1px solid #ccc; margin-top:0.4rem;"></div>';
+        const ansDiv = document.createElement('div');
+        ansDiv.className = 'ws-answer';
+        ansDiv.innerHTML = '<em>Answer:</em> ' + formatNumber(prob.answer);
+        div.appendChild(ansDiv);
+        div.addEventListener('click', () => {
+          ansDiv.style.display = ansDiv.style.display === 'none' || ansDiv.style.display === '' ? 'block' : 'none';
+        });
+        worksheetOutput.appendChild(div);
+      });
+
+      if (items.length > 0) {
+        wsRevealAllBtn.disabled = false;
+        wsHideAllBtn.disabled = false;
+      } else {
+        wsRevealAllBtn.disabled = true;
+        wsHideAllBtn.disabled = true;
+      }
+    }
+
+    function setWorksheetAnswersVisible(visible) {
+      const answers = worksheetOutput.querySelectorAll('.ws-answer');
+      answers.forEach(a => {
+        a.style.display = visible ? 'block' : 'none';
+      });
+    }
+
+    // =========================
+    // Event listeners
+    // =========================
+
+    mainModeButtons.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      const mode = e.target.getAttribute('data-mode');
+      Array.from(mainModeButtons.querySelectorAll('button')).forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
+      state.mode = mode;
+      // The main buttons mirror the internal tabs
+      if (mode === 'game') {
+        gameSection.style.display = '';
+        worksheetSection.style.display = 'none';
+        const tabs = gameCard.querySelectorAll('.mode-tabs button');
+        tabs[0].classList.add('active');
+        tabs[1].classList.remove('active');
+      } else {
+        gameSection.style.display = 'none';
+        worksheetSection.style.display = '';
+        const tabs = gameCard.querySelectorAll('.mode-tabs button');
+        tabs[0].classList.remove('active');
+        tabs[1].classList.add('active');
+      }
+    });
+
+    // Inner tabs in card
+    gameCard.querySelector('.mode-tabs').addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      const gm = e.target.getAttribute('data-gamemode');
+      Array.from(gameCard.querySelectorAll('.mode-tabs button')).forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
+      if (gm === 'game') {
+        gameSection.style.display = '';
+        worksheetSection.style.display = 'none';
+        mainModeButtons.querySelector('button[data-mode="game"]').classList.add('active');
+        mainModeButtons.querySelector('button[data-mode="worksheet"]').classList.remove('active');
+      } else {
+        gameSection.style.display = 'none';
+        worksheetSection.style.display = '';
+        mainModeButtons.querySelector('button[data-mode="game"]').classList.remove('active');
+        mainModeButtons.querySelector('button[data-mode="worksheet"]').classList.add('active');
+      }
+    });
+
+    questionTypeButtons.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      const type = e.target.getAttribute('data-qtype');
+      Array.from(questionTypeButtons.querySelectorAll('button')).forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
+      state.questionType = type === 'solveForX' ? 'solveForX' : 'solve';
+      loadNewProblem();
+    });
+
+    difficultyButtons.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'BUTTON') return;
+      const diff = e.target.getAttribute('data-diff');
+      Array.from(difficultyButtons.querySelectorAll('button')).forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
+      state.difficulty = diff;
+      loadNewProblem();
+    });
+
+    timerToggle.addEventListener('change', () => {
+      state.timer.enabled = timerToggle.checked;
+      if (state.timer.enabled) {
+        state.timer.duration = Number(timerDurationSel.value);
+        startTimer();
+      } else {
+        stopTimer();
+      }
+    });
+
+    timerDurationSel.addEventListener('change', () => {
+      state.timer.duration = Number(timerDurationSel.value);
+      if (state.timer.enabled) {
+        startTimer();
+      }
+    });
+
+    contrastToggle.addEventListener('change', () => {
+      if (contrastToggle.checked) {
+        document.body.classList.add('high-contrast');
+      } else {
+        document.body.classList.remove('high-contrast');
+      }
+    });
+
+    submitBtn.addEventListener('click', checkAnswer);
+    nextBtn.addEventListener('click', () => {
+      loadNewProblem();
+    });
+
+    answerInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        if (!submitBtn.disabled) {
+          checkAnswer();
+        } else if (!nextBtn.disabled && state.lastWasCorrect) {
+          loadNewProblem();
+        }
+      } else if (e.key === 'Escape') {
+        answerInput.value = '';
+      }
+    });
+
+    showStepsBtn.addEventListener('click', () => {
+      if (!state.currentProblem) return;
+      stepsArea.innerHTML = state.currentProblem.stepsHTML;
+    });
+
+    generateWsBtn.addEventListener('click', generateWorksheet);
+    wsRevealAllBtn.addEventListener('click', () => setWorksheetAnswersVisible(true));
+    wsHideAllBtn.addEventListener('click', () => setWorksheetAnswersVisible(false));
+
+    // =========================
+    // Developer tests (?dev=1)
+    // =========================
+
+    function runDevTests() {
+      const params = new URLSearchParams(location.search);
+      if (!params.has('dev')) return;
+      devPanel.style.display = 'block';
+      const logs = [];
+
+      function log(name, passed, info) {
+        logs.push((passed ? '✅ ' : '❌ ') + name + (info ? ' — ' + info : ''));
+      }
+
+      // 1. Easy x-solutions whole
+      (function () {
+        let ok = true;
+        for (let i = 0; i < 20; i++) {
+          const p = generateProblem('solveForX', 'easy');
+          if (!Number.isInteger(p.answer) || p.answer < 0) {
+            ok = false;
+            break;
+          }
+        }
+        log('Easy solve-for-x solutions are non-negative integers', ok);
+      })();
+
+      // 2. Medium x-solutions integers
+      (function () {
+        let ok = true;
+        for (let i = 0; i < 20; i++) {
+          const p = generateProblem('solveForX', 'medium');
+          if (!Number.isInteger(p.answer)) {
+            ok = false;
+            break;
+          }
+        }
+        log('Medium solve-for-x solutions are integers', ok);
+      })();
+
+      // 3. Hard x-solutions allow decimals
+      (function () {
+        let hadDecimal = false;
+        let ok = true;
+        for (let i = 0; i < 40; i++) {
+          const p = generateProblem('solveForX', 'hard');
+          if (!isFinite(p.answer)) {
+            ok = false;
+            break;
+          }
+          if (!Number.isInteger(p.answer)) hadDecimal = true;
+        }
+        log('Hard solve-for-x solutions finite (and sometimes decimal)', ok && hadDecimal,
+          hadDecimal ? 'Decimal detected at least once' : 'No decimal detected');
+      })();
+
+      // 4. Solve problems integer answers
+      (function () {
+        let ok = true;
+        for (let i = 0; i < 40; i++) {
+          const p = generateProblem('solve', 'easy');
+          if (!Number.isInteger(p.answer)) { ok = false; break; }
+        }
+        log('Solve easy answers are integers', ok);
+      })();
+
+      // 5. Random difficulty works
+      (function () {
+        let diffs = {easy:0, medium:0, hard:0};
+        for (let i = 0; i < 60; i++) {
+          const p = generateProblem('solve', 'random');
+          diffs[p.difficulty] = (diffs[p.difficulty] || 0) + 1;
+        }
+        const ok = diffs.easy > 0 && diffs.medium > 0 && diffs.hard > 0;
+        log('Random difficulty produces all tiers', ok,
+          'Counts: ' + JSON.stringify(diffs));
+      })();
+
+      // 6. Normalization of decimals
+      (function () {
+        const v = normalizeInput(' 1 234,5 ');
+        log('Input normalization accepts spaces and comma', v === 1234.5, 'Got ' + v);
+      })();
+
+      // 7. Timer duration respects selection
+      (function () {
+        state.timer.duration = 90;
+        log('Timer duration settable', state.timer.duration === 90);
+      })();
+
+      // 8. Worksheet generator produces requested count
+      (function () {
+        const c = 7;
+        let items = [];
+        for (let i = 0; i < c; i++) {
+          items.push(generateProblem('solve', 'easy'));
+        }
+        log('Worksheet generator count check', items.length === c, 'Length ' + items.length);
+      })();
+
+      // 9. Hard solve problems integer and safe
+      (function () {
+        let ok = true;
+        for (let i = 0; i < 40; i++) {
+          const p = generateProblem('solve', 'hard');
+          if (!Number.isInteger(p.answer) || !Number.isSafeInteger(p.answer) || p.answer <= 0) {
+            ok = false; break;
+          }
+        }
+        log('Hard solve problems produce positive safe integers', ok);
+      })();
+
+      // 10. Formatting adds spaces
+      (function () {
+        const f = formatNumber(1234567);
+        log('Number formatting uses spaces', f === '1 234 567', 'Output: ' + f);
+      })();
+
+      devLog.textContent = logs.join('\n');
+    }
+
+    // =========================
+    // Init
+    // =========================
+    document.addEventListener('DOMContentLoaded', () => {
+      state.timer.enabled = false;
+      state.timer.duration = Number(timerDurationSel.value);
+      updateStatsDisplay();
+      loadNewProblem();
+      runDevTests();
+    });
+  </script>
+</body>
+</html>
